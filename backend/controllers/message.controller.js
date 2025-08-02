@@ -63,6 +63,7 @@ export const getMessages = async (req, res) => {
 		const cachedMessages = await client.get(conversationCacheKey);
 
 		if (cachedMessages) {
+			console.log(" redis working for message");
 			return res.status(200).json(JSON.parse(cachedMessages));
 		}
 
