@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
-
+import { client } from "../db/connectToRedis.js";
 export const signup = async (req, res) => {
 	try {
 		const { fullName, username, password, confirmPassword, gender } = req.body;
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
 			// Generate JWT token here
 			generateTokenAndSetCookie(newUser._id, res);
 			await newUser.save();
-
+                        await client.del("all_users");
 			res.status(201).json({
 				_id: newUser._id,
 				fullName: newUser.fullName,
