@@ -22,7 +22,7 @@ const useSignup = () => {
 			if (data.error) {
 				throw new Error(data.error);
 			}
-			localStorage.setItem("chat-user", JSON.stringify(data));
+			localStorage.setItem(`chat-user-${data._id}`, JSON.stringify(data)); //will help opening the another user in same browser on refresh
 			setAuthUser(data);
 		} catch (error) {
 			toast.error(error.message);
